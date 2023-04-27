@@ -5,8 +5,10 @@ import * as ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-import { ankiFuriganaProcess } from "./AnkiFuriganaParser";
+import { AnkiFuriganaParser } from "./parsers/AnkiFuriganaParser";
+import { ObsidianFuriganaParser } from "./parsers/ObsidianFuriganaParser";
 import { logseq as PL } from "../package.json";
+import { CommonParser } from "./parsers/CommonParser";
 
 // @ts-expect-error
 const css = (t, ...args) => String.raw(t, ...args);
@@ -57,20 +59,26 @@ function main() {
     `,
   });
 
-  logseq.Editor.registerSlashCommand(
-    'Anki Furigana to ruby',
-    async ({pid, format, uuid}) => {
-      const content = await logseq.Editor.getEditingBlockContent();
-      const withFurigana = ankiFuriganaProcess(content);
+  function createRubySlashCommand (fp: CommonParser) {
+    return logseq.Editor.registerSlashCommand(
+      `${fp.slashCommandTitle} to ruby`,
+      async ({pid, format, uuid}) => {
+        const content = await logseq.Editor.getEditingBlockContent();
+        const withFurigana = fp.toHtml(content);
 
-      if (withFurigana) {
-        const newContent = `<span>${withFurigana}</span>`
-        // logseq.Editor.insertBlock(uuid, newContent);
-        logseq.Editor.updateBlock(uuid, newContent);
-      } else {
-        logseq.UI.showMsg('No furigana detected', 'warning');
+        if (withFurigana) {
+          const newContent = `<span>${withFurigana}</span>`
+          logseq.Editor.insertBlock(uuid, newContent);
+          // logseq.Editor.updateBlock(uuid, newContent);
+        } else {
+          logseq.UI.showMsg('No furigana detected', 'warning');
+        }
       }
-    })
+    )
+  }
+
+  createRubySlashCommand(new AnkiFuriganaParser());
+  createRubySlashCommand(new ObsidianFuriganaParser());
 
   console.info('logseq-furigana loaded');
 }
