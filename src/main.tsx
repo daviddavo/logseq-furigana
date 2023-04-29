@@ -13,10 +13,7 @@ import { CommonParser } from "./parsers/CommonParser";
 // @ts-expect-error
 const css = (t, ...args) => String.raw(t, ...args);
 
-const pluginId = PL.id;
-
 function main() {
-  console.info(`#${pluginId}: MAIN`);
   const root = ReactDOM.createRoot(document.getElementById("app")!);
 
   root.render(
@@ -68,8 +65,8 @@ function main() {
 
         if (withFurigana) {
           const newContent = `<span>${withFurigana}</span>`
-          logseq.Editor.insertBlock(uuid, newContent);
-          // logseq.Editor.updateBlock(uuid, newContent);
+          // logseq.Editor.insertBlock(uuid, newContent);
+          logseq.Editor.updateBlock(uuid, newContent);
         } else {
           logseq.UI.showMsg('No furigana detected', 'warning');
         }

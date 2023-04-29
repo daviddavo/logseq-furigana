@@ -1,18 +1,22 @@
-# Logseq Plugin Template React 🚀
+# <img src="./logo.svg" style="height: .9em"> Logseq Furigana
+
+![demo video](./demo.gif)
 
 ## Features
 
-- Plug-and-play boilerplate with properly defined GitHub action defaults
-- Develop with HMR, empowered by lightning-fast Vite ⚡ with [vite-logseq-plugin](https://github.com/pengx17/vite-plugin-logseq)
-- TailwindCSS for styling
-- Pnpm
+- **Slash command** to transcribe from Markdown Furigana to HTML Ruby tags
+  - _/Anki Furigana to Ruby_: Parses furigana in Anki syntax `漢字[かんじ]`
+  - _/Obsidian Furigana to Ruby_: Parses furigana in Obsidian Markdown syntax `{漢字|かん|じ}`
+- (Upcomming): Render the markdown tags without editing your notes. Please make it possible by voting the relevant [Plugin API Feature Request](https://discuss.logseq.com/t/markdown-postprocessor-plugins-api/17334)
 
-## How to get started
-1. Clone the repository or use the button "Use this template" on GitHub to create your own version of the repository 🔨
+## How to develop
+1. Clone the repository
 2. Make sure you have pnpm installed, [install](https://pnpm.io/installation) if necessary 🛠
 3. Execute `pnpm install` 📦
-4. Change the plugin-name in `package.json` to your liking. Adapt both the package-name and the plugin-id at the bottom of the `package.json`. Make sure that they are not conflicting with plugins you already installed. 📝
-5. Execute `pnpm build` to build the plugin 🚧
-6. Enable developer-mode in Logseq, go to plugins, select "Load unpacked plugin" 🔌
-7. Select the directory of your plugin (not the `/dist`-directory, but the directory which includes your package.json) 📂
-8. Enjoy! 🎉
+4. Execute `pnpm build` to build the plugin 🚧
+5. Enable developer-mode in Logseq, go to plugins, select "Load unpacked plugin" 🔌
+6. Select the directory of your plugin (not the `/dist`-directory, but the directory which includes your package.json) 📂
+7. Enjoy! 🎉
+
+## Acknowledgments
+- Obsidian Furigana Parser based on the [obsidian-markdown-furigana](https://github.com/steven-kraft/obsidian-markdown-furigana) plugin

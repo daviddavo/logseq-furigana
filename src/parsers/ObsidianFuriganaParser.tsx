@@ -27,8 +27,6 @@ export class ObsidianFuriganaParser extends CommonParser {
                     ruby.appendChild(rt);
                 })
 
-                console.log(ruby);
-
                 const start = this.obsidianFuriganaRegex.lastIndex - m[0].length;
                 const end = this.obsidianFuriganaRegex.lastIndex;
                 content = content.substring(0, start) + ruby.outerHTML + content.substring(end);
