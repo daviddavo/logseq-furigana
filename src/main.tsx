@@ -49,13 +49,6 @@ function main() {
     }
   `);
 
-  logseq.App.registerUIItem("toolbar", {
-    key: openIconName,
-    template: `
-      <div data-on-click="show" class="${openIconName}">⚙️</div>
-    `,
-  });
-
   function createRubySlashCommand (fp: CommonParser) {
     return logseq.Editor.registerSlashCommand(
       `${fp.slashCommandTitle} to ruby`,
