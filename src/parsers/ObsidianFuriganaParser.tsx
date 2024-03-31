@@ -9,9 +9,15 @@ export class ObsidianFuriganaParser extends CommonParser {
         return 'Obsidian furigana';
     }
 
-    toHtml(content: string): string | null {
-        let changes = false;
+    hasFurigana(content: string): boolean {
+        return this.obsidianFuriganaRegex.test(content);
+    }
 
+    toNode(text: Text): Node {
+        throw new Error('Not Implemented');
+    }
+
+    toHtml(content: string): string {
         let m = this.obsidianFuriganaRegex.exec(content);
         while (m) {
             const furi = m[2].split('|').slice(1); // First element is always empty
@@ -31,12 +37,11 @@ export class ObsidianFuriganaParser extends CommonParser {
                 const end = this.obsidianFuriganaRegex.lastIndex;
                 content = content.substring(0, start) + ruby.outerHTML + content.substring(end);
                 this.obsidianFuriganaRegex.lastIndex = start + ruby.outerHTML.length;
-                changes = true;
             }
 
             m = this.obsidianFuriganaRegex.exec(content);
         }
 
-        return changes ? content : null;
+        return content;
     }
 }
