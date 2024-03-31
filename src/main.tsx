@@ -8,7 +8,6 @@ import "./index.css";
 import { AnkiFuriganaParser } from "./parsers/AnkiFuriganaParser";
 import { ObsidianFuriganaParser } from "./parsers/ObsidianFuriganaParser";
 import { MarukakkoFuriganaParser } from "./parsers/MarukakkoFuriganaParser";
-import { logseq as PL } from "../package.json";
 import { CommonParser } from "./parsers/CommonParser";
 import { SumitsukikakkoFuriganaParser } from "./parsers/SumitsukikakkoFuriganaParser";
 
@@ -88,8 +87,8 @@ async function main() {
             content.style.border = '1px solid red'
             for (const fp of parsers) {
               if (fp.hasFurigana(content.innerHTML)) {
-                  fp.replaceHtml(content)
-                  content.style.border = '1px solid green'
+                fp.replaceHtml(content)
+                content.style.border = '1px solid green'
               }
             }
           }

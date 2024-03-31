@@ -4,10 +4,6 @@ export abstract class SimpleRegexParser extends CommonParser {
     // The first group would be the kanji, and the second group the furigana
     abstract get regex() : RegExp;
 
-    get slashCommandTitle () {
-        return 'Anki furigana';
-    }
-
     hasFurigana(content: string): boolean {
         return this.regex.test(content);
     }
@@ -35,12 +31,12 @@ export abstract class SimpleRegexParser extends CommonParser {
 
             last = toReplace.splitText(end)
             toReplace.replaceWith(ruby)
-            console.log(ruby)
-            console.log(start)
-            console.log(end)
-            console.log(toReplace)
-            console.log(last)
-            console.log(text)
+            // console.log(ruby)
+            // console.log(start)
+            // console.log(end)
+            // console.log(toReplace)
+            // console.log(last)
+            // console.log(text)
         }
 
         return text

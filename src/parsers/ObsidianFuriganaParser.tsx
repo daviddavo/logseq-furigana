@@ -14,7 +14,39 @@ export class ObsidianFuriganaParser extends CommonParser {
     }
 
     toNode(text: Text): Node {
-        throw new Error('Not Implemented');
+        let last = text
+        console.log("Inside toNode" + text.textContent!)
+        console.log(text.textContent!.match(this.obsidianFuriganaRegex))
+
+        for (const match of text.textContent!.matchAll(this.obsidianFuriganaRegex)) {
+            const furi = match[2].split('|').slice(1)
+            const kanji = furi.length === 1 ? [match[1]] : match[1].split('')
+
+            const ruby = document.createElement('ruby')
+            kanji.forEach((k,i) => {
+                ruby.appendChild(document.createTextNode(k));
+                const rt = document.createElement('rt')
+                rt.appendChild(document.createTextNode(furi[i]))
+                ruby.appendChild(rt)
+            })
+
+            const start = last.textContent!.indexOf(match[0])
+            const end = match[0].length
+
+            const toReplace = last.splitText(start)
+
+            last = toReplace.splitText(end)
+            toReplace.replaceWith(ruby)
+
+            console.log(ruby)
+            console.log(start)
+            console.log(end)
+            console.log(toReplace)
+            console.log(last)
+            console.log(text)
+        }
+
+        return text
     }
 
     toHtml(content: string): string {
