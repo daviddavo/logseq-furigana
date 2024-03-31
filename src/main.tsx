@@ -7,8 +7,10 @@ import "./index.css";
 
 import { AnkiFuriganaParser } from "./parsers/AnkiFuriganaParser";
 import { ObsidianFuriganaParser } from "./parsers/ObsidianFuriganaParser";
+import { MarukakkoFuriganaParser } from "./parsers/MarukakkoFuriganaParser";
 import { logseq as PL } from "../package.json";
 import { CommonParser } from "./parsers/CommonParser";
+import { SumitsukikakkoFuriganaParser } from "./parsers/SumitsukikakkoFuriganaParser";
 
 // @ts-expect-error
 const css = (t, ...args) => String.raw(t, ...args);
@@ -70,7 +72,11 @@ async function main() {
   const parsers = [ 
     new AnkiFuriganaParser(),
     new ObsidianFuriganaParser(),
+    new MarukakkoFuriganaParser(),
+    new SumitsukikakkoFuriganaParser(),
   ]
+
+  parsers.map(createRubySlashCommand)
 
   const observer = new MutationObserver((mutationList, observer) => {
     for (const m of mutationList) {
