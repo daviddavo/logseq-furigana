@@ -15,6 +15,6 @@ export class MarukakkoFuriganaParser extends SimpleRegexParser {
     }
 
     get regex() : RegExp {
-        return /(\S+)\u{ff08}(\S+)\u{ff09}/gmu
+        return /(\p{Script_Extensions=Han}+)\u{ff08}(\S+)\u{ff09}/gmu
     }
 }

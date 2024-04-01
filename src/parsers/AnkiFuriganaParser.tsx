@@ -14,6 +14,6 @@ export class AnkiFuriganaParser extends SimpleRegexParser {
     }
 
     get regex() : RegExp {
-        return /(\S+)\[(\S+)\]/gm
+        return /(\p{Script_Extensions=Han}+)\[(\S+)\]/gmu
     }
 }
