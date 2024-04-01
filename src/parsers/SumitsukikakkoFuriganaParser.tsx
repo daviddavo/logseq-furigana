@@ -1,6 +1,14 @@
 import { SimpleRegexParser } from "./SimpleRegexParser";
 
 export class SumitsukikakkoFuriganaParser extends SimpleRegexParser {
+    get configKey() : string {
+        return "sumitsukikakko"
+    }
+
+    get description() : string {
+        return "Uses Japanese filled brackets `漢字【かんじ】`"
+    }
+
     get slashCommandTitle() : string {
         return "Sumitsukikakko furigana"
     }

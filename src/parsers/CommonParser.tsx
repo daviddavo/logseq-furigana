@@ -1,5 +1,7 @@
 export abstract class CommonParser {
-    public abstract get slashCommandTitle() : string;
+    public abstract get configKey() : string
+    public abstract get description() : string
+    public abstract get slashCommandTitle() : string
     protected abstract toNode(text: Text) : Node
 
     // This commands should work both with Markdown and with HTML
