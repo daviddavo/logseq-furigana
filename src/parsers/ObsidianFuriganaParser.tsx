@@ -1,56 +1,19 @@
-import { CommonParser } from "./CommonParser";
+import { SimpleRegexParser } from "./SimpleRegexParser";
 
 // Based on https://github.com/steven-kraft/obsidian-markdown-furigana
-export class ObsidianFuriganaParser extends CommonParser {
-    // From https://github.com/steven-kraft/obsidian-markdown-furigana/blob/4c274274ea33feb826631a7d7b5c4bac28742346/main.ts#L4
-    readonly obsidianFuriganaRegex : RegExp = /{((?:[\u2E80-\uA4CF\uFF00-\uFFEF])+)((?:\|[^ -\/{-~:-@\[-`]*)+)}/gm;
+export class ObsidianFuriganaParser extends SimpleRegexParser {
+
+    get regex() : RegExp {
+        // From https://github.com/steven-kraft/obsidian-markdown-furigana/blob/4c274274ea33feb826631a7d7b5c4bac28742346/main.ts#L4
+        return /{((?:[\u2E80-\uA4CF\uFF00-\uFFEF])+)((?:\|[^ -\/{-~:-@\[-`]*)+)}/gm;
+    }
 
     get slashCommandTitle(): string {
         return 'Obsidian furigana';
     }
 
-    hasFurigana(content: string): boolean {
-        return this.obsidianFuriganaRegex.test(content);
-    }
-
-    toNode(text: Text): Node {
-        let last = text
-        console.log("Inside toNode" + text.textContent!)
-        console.log(text.textContent!.match(this.obsidianFuriganaRegex))
-
-        for (const match of text.textContent!.matchAll(this.obsidianFuriganaRegex)) {
-            const furi = match[2].split('|').slice(1)
-            const kanji = furi.length === 1 ? [match[1]] : match[1].split('')
-
-            const ruby = document.createElement('ruby')
-            kanji.forEach((k,i) => {
-                ruby.appendChild(document.createTextNode(k));
-                const rt = document.createElement('rt')
-                rt.appendChild(document.createTextNode(furi[i]))
-                ruby.appendChild(rt)
-            })
-
-            const start = last.textContent!.indexOf(match[0])
-            const end = match[0].length
-
-            const toReplace = last.splitText(start)
-
-            last = toReplace.splitText(end)
-            toReplace.replaceWith(ruby)
-
-            console.log(ruby)
-            console.log(start)
-            console.log(end)
-            console.log(toReplace)
-            console.log(last)
-            console.log(text)
-        }
-
-        return text
-    }
-
     toHtml(content: string): string {
-        let m = this.obsidianFuriganaRegex.exec(content);
+        let m = this.regex.exec(content);
         while (m) {
             const furi = m[2].split('|').slice(1); // First element is always empty
             const kanji = furi.length === 1 ? [m[1]] : m[1].split('');
@@ -65,13 +28,13 @@ export class ObsidianFuriganaParser extends CommonParser {
                     ruby.appendChild(rt);
                 })
 
-                const start = this.obsidianFuriganaRegex.lastIndex - m[0].length;
-                const end = this.obsidianFuriganaRegex.lastIndex;
+                const start = this.regex.lastIndex - m[0].length;
+                const end = this.regex.lastIndex;
                 content = content.substring(0, start) + ruby.outerHTML + content.substring(end);
-                this.obsidianFuriganaRegex.lastIndex = start + ruby.outerHTML.length;
+                this.regex.lastIndex = start + ruby.outerHTML.length;
             }
 
-            m = this.obsidianFuriganaRegex.exec(content);
+            m = this.regex.exec(content);
         }
 
         return content;

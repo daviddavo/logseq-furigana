@@ -9,21 +9,22 @@ export abstract class SimpleRegexParser extends CommonParser {
     }
 
     toNode(text: Text) : Node {
-        console.log("Inside toNode: " + text.textContent!)
-        console.log(text.textContent!.match(this.regex))
         let last = text
+        console.log("Inside toNode" + text.textContent!)
+        console.log(text.textContent!.match(this.regex))
 
-        for (const match of text.textContent!.matchAll(this.regex) ) {
-            console.log(match)
-            const kanji = match[1]
-            const furi = match[2]
-
-            // Create the ruby
+        for (const match of text.textContent!.matchAll(this.regex)) {
+            const furi = match[2].includes('|') ? match[2].split('|').slice(1) : [ match[2] ]
+            const kanji = furi.length === 1 ? [match[1]] : match[1].split('')
+            
             const ruby = document.createElement('ruby')
-            // ruby.appendChild(document.createTextNode("Holi?"))
-            ruby.innerHTML = `${kanji}<rt>${furi}</rt>`
+            kanji.forEach((k,i) => {
+                ruby.appendChild(document.createTextNode(k));
+                const rt = document.createElement('rt')
+                rt.appendChild(document.createTextNode(furi[i]))
+                ruby.appendChild(rt)
+            })
 
-            // Replace it
             const start = last.textContent!.indexOf(match[0])
             const end = match[0].length
 
@@ -31,12 +32,13 @@ export abstract class SimpleRegexParser extends CommonParser {
 
             last = toReplace.splitText(end)
             toReplace.replaceWith(ruby)
-            // console.log(ruby)
-            // console.log(start)
-            // console.log(end)
-            // console.log(toReplace)
-            // console.log(last)
-            // console.log(text)
+
+            console.log(ruby)
+            console.log(start)
+            console.log(end)
+            console.log(toReplace)
+            console.log(last)
+            console.log(text)
         }
 
         return text
