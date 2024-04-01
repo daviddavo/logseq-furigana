@@ -1,17 +1,19 @@
-import { CommonParser } from "./CommonParser";
+import { SimpleRegexParser } from "./SimpleRegexParser";
 
-export class AnkiFuriganaParser extends CommonParser {
-    readonly ankiFuriganaRegex : RegExp = /(\S+)\[(\S+)\]/gm;
-
-    get slashCommandTitle () {
-        return 'Anki furigana';
+export class AnkiFuriganaParser extends SimpleRegexParser {
+    get configKey() : string {
+        return "anki"
     }
 
-    toHtml(content: string) : string | null {
-        if (this.ankiFuriganaRegex.test(content)) {
-            return content.replace(this.ankiFuriganaRegex, this.furiganaHTMLTemplateSimple);
-        }
+    get description() : string {
+        return "Uses Anki's syntax for furigana: `漢字[かんじ]`"
+    }
 
-        return null;
+    get slashCommandTitle() : string {
+        return "Anki furigana"
+    }
+
+    get regex() : RegExp {
+        return /(\S+)\[(\S+)\]/gm
     }
 }
