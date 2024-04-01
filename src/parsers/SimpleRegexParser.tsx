@@ -12,7 +12,7 @@ export abstract class SimpleRegexParser extends CommonParser {
         let last = text
 
         for (const match of text.textContent!.matchAll(this.regex)) {
-            const furi = match[2].includes('|') ? match[2].split('|').slice(1) : [ match[2] ]
+            const furi = match[2].includes('|') ? match[2].split('|') : [ match[2] ]
             const kanji = furi.length === 1 ? [match[1]] : match[1].split('')
             
             const ruby = document.createElement('ruby')

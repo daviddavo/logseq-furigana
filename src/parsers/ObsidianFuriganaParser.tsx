@@ -11,8 +11,9 @@ export class ObsidianFuriganaParser extends SimpleRegexParser {
     }
 
     get regex() : RegExp {
-        // From https://github.com/steven-kraft/obsidian-markdown-furigana/blob/4c274274ea33feb826631a7d7b5c4bac28742346/main.ts#L4
-        return /{((?:[\u2E80-\uA4CF\uFF00-\uFFEF])+)((?:\|[^ -\/{-~:-@\[-`]*)+)}/gm;
+        // Based on https://github.com/steven-kraft/obsidian-markdown-furigana/blob/4c274274ea33feb826631a7d7b5c4bac28742346/main.ts#L4
+        // Modified to not include | on the second matching group
+        return /\{(\p{Script_Extensions=Han}+)\|([^-\/{-~:-@\[-`]*(?:\|[^-\/{-~:-@\[-`]*)*)\}/gmu
     }
 
     get slashCommandTitle(): string {
