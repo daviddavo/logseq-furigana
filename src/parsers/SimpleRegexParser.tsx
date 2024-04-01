@@ -10,8 +10,6 @@ export abstract class SimpleRegexParser extends CommonParser {
 
     toNode(text: Text) : Node {
         let last = text
-        console.log("Inside toNode" + text.textContent!)
-        console.log(text.textContent!.match(this.regex))
 
         for (const match of text.textContent!.matchAll(this.regex)) {
             const furi = match[2].includes('|') ? match[2].split('|').slice(1) : [ match[2] ]
@@ -32,19 +30,8 @@ export abstract class SimpleRegexParser extends CommonParser {
 
             last = toReplace.splitText(end)
             toReplace.replaceWith(ruby)
-
-            console.log(ruby)
-            console.log(start)
-            console.log(end)
-            console.log(toReplace)
-            console.log(last)
-            console.log(text)
         }
 
         return text
-    }
-
-    toHtml(content: string) : string {
-        return content.replace(this.regex, this.furiganaHTMLTemplateSimple);
     }
 }

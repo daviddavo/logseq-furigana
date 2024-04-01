@@ -55,12 +55,14 @@ async function main() {
       `${fp.slashCommandTitle} to ruby`,
       async ({pid, format, uuid}) => {
         const content = await logseq.Editor.getEditingBlockContent();
-        const withFurigana = fp.toHtml(content);
 
-        if (withFurigana) {
-          const newContent = `<span>${withFurigana}</span>`
+        if (fp.hasFurigana(content)) {
+          const aux = document.createElement('span')
+          aux.innerHTML = content;
+          fp.replaceHtml(aux);
+
           // logseq.Editor.insertBlock(uuid, newContent);
-          logseq.Editor.updateBlock(uuid, newContent);
+          logseq.Editor.updateBlock(uuid, aux.innerHTML);
         } else {
           logseq.UI.showMsg('No furigana detected', 'warning');
         }
@@ -83,7 +85,7 @@ async function main() {
         if (node.nodeType === Node.ELEMENT_NODE) {
           const element = node as HTMLElement 
 
-          for (const content of element.querySelectorAll('span.inline') as NodeListOf<HTMLElement>) {
+          for (const content of element.querySelectorAll('div.block-content') as NodeListOf<HTMLElement>) {
             content.style.border = '1px solid red'
             for (const fp of parsers) {
               if (fp.hasFurigana(content.innerHTML)) {
