@@ -62,7 +62,6 @@ async function main() {
           aux.innerHTML = content;
           fp.replaceHtml(aux);
 
-          // logseq.Editor.insertBlock(uuid, newContent);
           logseq.Editor.updateBlock(uuid, aux.innerHTML);
         } else {
           logseq.UI.showMsg('No furigana detected', 'warning');
@@ -119,11 +118,11 @@ async function main() {
           const element = node as HTMLElement 
 
           for (const content of element.querySelectorAll('div.block-content') as NodeListOf<HTMLElement>) {
-            content.style.border = '1px solid red'
+            // content.style.border = '1px solid red'
             for (const fp of enabledParsers) {
               if (fp.hasFurigana(content.innerHTML)) {
                 fp.replaceHtml(content)
-                content.style.border = '1px solid green'
+                // content.style.border = '1px solid green'
               }
             }
           }
@@ -133,40 +132,6 @@ async function main() {
   })
 
   observer.observe(top!.document.body, {childList: true, subtree: true, })
-
-  // TODO: Use also on block edited
-  // logseq.App.onRouteChanged(async (e) => {
-  //   console.log(e)
-
-  //   const inlines = document.querySelectorAll("span.inline")
-  //   for (const i of inlines) {
-  //     console.log(`Setting up observer for ${i}`)
-  //     mo.observe(i, { childList: true, subtree: true, attributes: true, })
-  //   }
-
-  //   const blocks = await logseq.Editor.getCurrentPageBlocksTree();
-  //   for (const block of blocks) {
-  //     if (/\.debug/.test(block.content)) {
-  //       logseq.App.onBlockRendererSlotted(
-  //         block.uuid,
-  //         ({slot, ...rest}) => {
-  //           console.log(`Slotted: ${slot} (${rest.content})`)
-  //           logseq.provideUI({
-  //             slot, 
-  //             template: `
-  //               <pre style="border: 1px solid red;">${JSON.stringify(block, null, 2)}</pre>
-  //             `,
-  //             reset: true,
-  //           })
-  //         }
-  //       )
-  //     }
-  //   }
-
-  //   return () => {
-  //     console.log("Off hook")
-  //   }
-  // })
 
   console.info('logseq-furigana loaded');
 }
