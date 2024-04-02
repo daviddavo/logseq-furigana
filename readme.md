@@ -1,13 +1,28 @@
-# <img src="./logo.svg" style="height: .9em"> Logseq Furigana
+# <img src="./logo.svg" style="width: 0.9em" width="24"> Logseq Furigana
 
 ![demo video](./demo.gif)
 
 ## Features
 
-- **Slash command** to transcribe from Markdown Furigana to HTML Ruby tags
-  - _/Anki Furigana to Ruby_: Parses furigana in Anki syntax `漢字[かんじ]`
-  - _/Obsidian Furigana to Ruby_: Parses furigana in Obsidian Markdown syntax `{漢字|かん|じ}`
-- (Upcomming): Render the markdown tags without editing your notes. Please make it possible by voting the relevant [Plugin API Feature Request](https://discuss.logseq.com/t/markdown-postprocessor-plugins-api/17334)
+Choose if you want to modify your notes or not:
+
+- **Slash command** to transcribe from Markdown Furigana to HTML Ruby tags. 
+  - Modifies your notes but you can read them without having the plugin installed.
+- **Markdown rendering** to show ruby tags without modifying your notes
+  - Just write something like `{漢字|かんじ}` and it will show us as furigana
+
+### Parsers
+
+- There are multiple ways of writing the <ruby>ふりがな<rt>furigana</ruby>:
+  - **Round parentheses**: An old classic:  `これは 漢字（かんじ）です`
+    - ⚠️ Keep in mind that these are JAPANESE parentheses. You have to use your japanese input method.
+  - **Anki** way: Like this `これは 漢字[かんじ]です`
+  - **Spectacle parentheses**: `これは 漢字【かんじ】です`
+  - **[Obsidian's plugin](https://github.com/steven-kraft/obsidian-markdown-furigana)** way, based on a [markdown-it extension](https://github.com/lostandfound/markdown-it-ruby) (recommended)
+    - Uses two brackets to enclose the whole compound: `これは{漢字|かんじ}です`
+- You might need to put an space to separate compounds.
+- Use extra `|` to show the furigana of each kanji of the word:
+  - `漢字[かん|じ] or {漢字|かん|じ}`
 
 ## How to develop
 1. Clone the repository
