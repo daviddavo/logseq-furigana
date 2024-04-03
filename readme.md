@@ -2,6 +2,9 @@
 
 ![demo video](./demo.gif)
 
+<h3>If you 💜 what I'm doing - you can support my work 🍵</h3>
+<a href="https://www.buymeacoffee.com/ddavo"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a bubble tea&emoji=🍵&slug=ddavo&button_colour=5f7fff&font_colour=fff&font_family=Lato&outline_colour=000000" /></a>
+
 ## Features
 
 Choose if you want to modify your notes or not:
@@ -35,3 +38,4 @@ Choose if you want to modify your notes or not:
 
 ## Acknowledgments
 - Obsidian Furigana Parser based on the [obsidian-markdown-furigana](https://github.com/steven-kraft/obsidian-markdown-furigana) plugin
+- Plugin template in [logseq-plugin-template-react](https://github.com/pengx17/logseq-plugin-template-react)
