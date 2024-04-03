@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/daviddavo/logseq-furigana/compare/v1.1.0...v1.1.1) (2024-04-02)
+
+
+### Bug Fixes
+
+* Use of | inside furigana of other parsers ([3b1587b](https://github.com/daviddavo/logseq-furigana/commit/3b1587bed11187f0db1c56cb9db132291eabb6db))
+* Using only kanji (hanzi) instead of any letter ([c04eecb](https://github.com/daviddavo/logseq-furigana/commit/c04eecb53fa790ff937ca07e0c953be03b7e0653))
+
 # [1.1.0](https://github.com/daviddavo/logseq-furigana/compare/v1.0.1...v1.1.0) (2024-04-01)
 
 
