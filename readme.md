@@ -1,3 +1,6 @@
+### My other plugins
+- 😍 [Logseq Emoji Shortcodes](https://github.com/daviddavo/logseq-emoji-shortcodes)
+
 # <img src="./logo.svg" style="width: 0.9em" width="24"> Logseq Furigana
 
 ![demo video](./demo.gif)
